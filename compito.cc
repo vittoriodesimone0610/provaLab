@@ -35,6 +35,27 @@ void stampa(lista agenda){
     }
 }
 
+//PUNTO 2a
+void quanti(lista a, tipo_inf app){
+    int p = 0;
+    int d = 0;
+
+    while(a != NULL){
+        if(strcmp(app.data, head(a).data) == 0){
+            if(strcmp(head(a).ora_i, app.ora_f) > 0){//l'appuntamento app cercato viene dopo
+                d++;
+            }
+            else if(strcmp(head(a).ora_i, app.ora_f) < 0){
+                p++;
+            }
+        }
+        a = tail(a);
+    }
+
+    cout<<"Appuntamenti che precedono: "<<p<<endl;
+    cout<<"Appuntamento che seguono: "<<d<<endl;
+}
+
 int main(){
     lista a = NULL;
     ifstream file("agenda.txt");
@@ -69,8 +90,20 @@ int main(){
     }
     file.close();
 
-    cout<<"PUNTO 1: STAMPA DELL'AGENDA: "<<endl;
+    cout<<"----PUNTO 1: STAMPA DELL'AGENDA: "<<endl;
     stampa(a);
+
+    cout<<"----PUNTO 2"<<endl;
+    tipo_inf app;
+    cout<<"Inserisci la data dell'appuntamento da cercare"<<endl;
+    cin>>app.data;
+    cout<<"Inserisci l'ora inizio dell'appuntamento da cercare"<<endl;
+    cin>>app.ora_i;
+    cout<<"Inserisci l'ora di fine dell'appuntamento da cercare"<<endl;
+    cin>>app.ora_f;
+    cout<<"Inserisci la descrizione dell'appuntamento da cercare"<<endl;
+    cin>>app.descr;
+    quanti(a, app);
 
     return 0;
 }
